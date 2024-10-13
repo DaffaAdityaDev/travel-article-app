@@ -10,6 +10,7 @@ import Register from './pages/Register'
 import Profiles from './pages/Profiles'
 import ManageArticles from './pages/Articles/Manage'
 import Category from './pages/Category'
+import Landing from './pages/Landing'
 
 function App() {
   
@@ -18,7 +19,7 @@ function App() {
     <Routes>
       
       <Route path="/">
-        <Route index element={<Login />} />
+        <Route index element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 

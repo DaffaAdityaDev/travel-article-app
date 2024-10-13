@@ -33,26 +33,21 @@ function Login() {
       setPassword('');
       navigate('/articles');
     } catch (err: unknown) {
-      if (typeof err === 'object' && err !== null && 'data' in err) {
-        const errorMessage = (err as { data: string }).data;
-        toast.error(errorMessage, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-      } else {
-        toast.error('An unexpected error occurred. Please try again later.', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+      let errorMessage = 'An unexpected error occurred. Please try again later.';
+      
+      if (err && typeof err === 'object') {
+        const errorData = err as { message?: string };
+        if (errorData.message) {
+          errorMessage = errorData.message;
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
       }
+
+      toast.error(errorMessage, {
+        position: "top-right",
+        autoClose: 5000,
+      });
     }
   };
 

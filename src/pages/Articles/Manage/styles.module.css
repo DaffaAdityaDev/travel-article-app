@@ -65,34 +65,74 @@
   }
   
   .articleItem {
-    border: 1px solid #ddd;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
     overflow: hidden;
-    transition: box-shadow 0.3s;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
   .articleItem:hover {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .imageContainer {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
   }
   
   .articleImage {
     width: 100%;
-    height: 200px;
+    height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .articleItem:hover .articleImage {
+    transform: scale(1.05);
+  }
+  
+  .placeholderImage {
+    filter: grayscale(100%);
+    opacity: 0.7;
+  }
+  
+  .noImage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    color: #666;
+    font-style: italic;
   }
   
   .articleDetails {
-    padding: 15px;
+    padding: 20px;
   }
   
-  .articleDetails h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
+  .articleTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    color: #333;
   }
   
-  .articleDetails p {
-    margin: 5px 0;
+  .articleDescription {
     font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  .articleMeta {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 5px;
   }
   
   .articleActions {
@@ -103,48 +143,70 @@
   
   .editButton,
   .deleteButton {
-    padding: 5px 10px;
+    padding: 8px 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
   
   .editButton {
-    background-color: #2196F3;
+    background-color: #3498db;
     color: white;
   }
   
   .deleteButton {
-    background-color: #f44336;
+    background-color: #e74c3c;
     color: white;
   }
   
   .editButton:hover,
   .deleteButton:hover {
     opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .editButton:active,
+  .deleteButton:active {
+    transform: translateY(0);
+    box-shadow: none;
   }
   
   .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
-    gap: 15px;
+    margin-top: 20px;
   }
   
-  .pagination button {
-    padding: 5px 10px;
-    border: none;
-    background-color: #2196F3;
+  .paginationButton {
+    padding: 10px 15px;
+    background-color: #4CAF50;
     color: white;
-    cursor: pointer;
+    border: none;
     border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 0 10px;
+    transition: background-color 0.3s;
   }
   
-  .pagination button:disabled {
-    background-color: #ccc;
+  .paginationButton:hover {
+    background-color: #45a049;
+  }
+  
+  .paginationButton:disabled {
+    background-color: #cccccc;
     cursor: not-allowed;
+  }
+  
+  .pageInfo {
+    font-size: 1rem;
+    color: #333;
   }
   
   .loading,
@@ -156,4 +218,27 @@
   
   .error {
     color: #f44336;
+  }
+
+  .articleContent {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 50px); 
+  }
+
+  .articleContent:hover {
+    background-color: #f5f5f5;
+  }
+
+  .articleActions {
+    margin-top: auto;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .editButton,
+  .deleteButton {
+    z-index: 1;
   }

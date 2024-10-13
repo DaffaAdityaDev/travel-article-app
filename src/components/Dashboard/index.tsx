@@ -6,6 +6,8 @@ import { Article, ArticlesResponse } from '../../types/article';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Doughnut, Pie } from 'react-chartjs-2';
 import styles from './styles.module.css';
+import { toast } from 'react-toastify';
+import * as XLSX from 'xlsx';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
@@ -163,6 +165,76 @@ function Dashboard() {
     ],
   };
 
+  const exportToExcel = () => {
+    if (articleStats.total === 0) {
+      toast.error('No data available to export');
+      return;
+    }
+
+    const workbook = XLSX.utils.book_new();
+
+    // Summary Sheet
+    const summaryData = [
+      ['Travel Article App - Dashboard Summary'],
+      ['Generated on:', new Date().toLocaleString()],
+      [''],
+      ['Total Articles:', articleStats.total],
+      ['Total Comments:', commentStats.total],
+      [''],
+      ['Articles by Category'],
+      ['Category', 'Count'],
+      ...Object.entries(articleStats.byCategory),
+      [''],
+      ['Top 5 Most Commented Articles'],
+      ['Article Title', 'Comments Count'],
+      ...Object.entries(commentStats.byArticle)
+        .sort(([, a], [, b]) => (b as number) - (a as number))
+        .slice(0, 5),
+      [''],
+      ['Recent Activity'],
+      ['Type', 'Details', 'Date'],
+      ...recentActivity.map(item => [
+        'title' in item ? 'New Article' : 'New Comment',
+        'title' in item ? item.title : `Comment on: ${item.article.title}`,
+        new Date(item.createdAt).toLocaleString()
+      ])
+    ];
+
+    const summaryWorksheet = XLSX.utils.aoa_to_sheet(summaryData);
+    XLSX.utils.book_append_sheet(workbook, summaryWorksheet, 'Summary');
+
+    // Auto-fit columns for the summary sheet
+    const range = XLSX.utils.decode_range(summaryWorksheet['!ref'] || 'A1');
+    for (let C = range.s.c; C <= range.e.c; ++C) {
+      let max = 0;
+      for (let R = range.s.r; R <= range.e.r; ++R) {
+        const cell = summaryWorksheet[XLSX.utils.encode_cell({c: C, r: R})];
+        if (cell && cell.v) {
+          const cellLength = cell.v.toString().length;
+          if (cellLength > max) max = cellLength;
+        }
+      }
+      summaryWorksheet['!cols'] = summaryWorksheet['!cols'] || [];
+      summaryWorksheet['!cols'][C] = { width: max + 2 };
+    }
+
+    // Add chart to Summary sheet
+    const chartRange = {
+      s: { c: 0, r: 7 },
+      e: { c: 1, r: 7 + Object.keys(articleStats.byCategory).length }
+    };
+    summaryWorksheet['!charts'] = [{
+      type: 'pie',
+      title: 'Articles by Category',
+      plotarea: { fill: { none: true } },
+      series: [{ name: 'Article Count', categories: `A8:A${chartRange.e.r}`, values: `B8:B${chartRange.e.r}` }],
+      legend: { position: 'b', show: true },
+      chartarea: { border: { none: true } }
+    }];
+
+    XLSX.writeFile(workbook, 'travel_article_app_report.xlsx');
+  };
+
   if (isLoading) {
     return <div className={styles.loading}>Loading...</div>;
   }
@@ -171,6 +243,7 @@ function Dashboard() {
     <div className={styles.dashboard}>
       <div className={styles.header}>
         <h1>Welcome, {userData?.username || 'User'}!</h1>
+        <button onClick={exportToExcel} className={styles.exportButton}>Export Dashboard To Excel</button>
       </div>
       <div className={styles.grid}>
         <div className={`${styles.box} ${styles.statsBox}`}>

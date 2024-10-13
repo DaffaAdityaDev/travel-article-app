@@ -13,7 +13,7 @@ import styles from './styles.module.css';
 function ArticleDetails() {
   const { documentId } = useParams<{ documentId: string }>();
   const [page, setPage] = useState(1);
-  const pageSize = 10;
+  const pageSize = 2;
 
   const { data: article, isLoading: isArticleLoading, isError: isArticleError, error: articleError } = useGetArticleQuery(documentId || '');
   const { 

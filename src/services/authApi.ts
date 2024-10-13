@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { apiSlice } from "../Api/apiSlice";
 import { LoginResponse, LoginCredentials, RegisterCredentials, User } from "../types/auth";
 

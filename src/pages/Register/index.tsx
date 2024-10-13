@@ -39,18 +39,22 @@ function Register() {
         autoClose: 3000,
       });
     } catch (err: unknown) {
-      if (err instanceof Error && 'data' in err) {
-        const errorWithData = err as { data: { message: string } };
-        toast.error(errorWithData.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-        });
-      } else {
-        toast.error('An unexpected error occurred. Please try again later.', {
-          position: "top-right",
-          autoClose: 5000,
-        });
+      let errorMessage = 'An unexpected error occurred. Please try again later.';
+      
+      if (err && typeof err === 'object') {
+        const errorData = err as { message?: string };
+        if (errorData.message) {
+          errorMessage = errorData.message;
+        }
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
       }
+
+      toast.error(errorMessage, {
+        position: "top-right",
+        autoClose: 5000,
+      });
+      console.error('Registration error:', err);
     }
   };
 

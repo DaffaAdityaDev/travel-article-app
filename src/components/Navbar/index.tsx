@@ -31,7 +31,7 @@ function Navbar({ children }: { children: React.ReactNode }) {
       )}
       <nav className={`${styles.navbar} ${isOpen ? styles.open : ''}`}>
         <div className={styles.navHeader}>
-          <h1>Publisher Weekly</h1>
+          <h1>Travel Article App</h1>
         </div>
         {isMobile ? (
           <ul className={styles.navList}>

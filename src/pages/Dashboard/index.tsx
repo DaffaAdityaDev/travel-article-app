@@ -1,12 +1,11 @@
-import React from 'react'
-import Welcome from '../../components/Welcome'
+import Dashboard from '../../components/Dashboard';
 
 function index() {
   console.log(localStorage.getItem('authToken'));
   return (
     <div>
-      <Welcome/>
-      <h1>Dashboard</h1>
+      {/* <Welcome/> */}
+      <Dashboard/>
     </div>
   )
 }

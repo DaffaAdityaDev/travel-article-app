@@ -1,5 +1,6 @@
 import { apiSlice } from "../Api/apiSlice";
-import { LoginResponse, LoginCredentials } from "../types/auth";
+import { LoginResponse, LoginCredentials, RegisterCredentials, User } from "../types/auth";
+
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,11 +10,30 @@ export const authApi = apiSlice.injectEndpoints({
         method: 'POST',
         body: credentials,
       }),
+      transformErrorResponse: (response: { status: number, data: any }) => {
+        return {
+          status: response.status,
+          message: response.data?.error?.message || 'An unexpected error occurred',
+        };
+      },
     }),
-    getMe: builder.query<LoginResponse['user'], void>({
+    register: builder.mutation<LoginResponse, RegisterCredentials>({
+      query: (credentials) => ({
+        url: '/auth/local/register',
+        method: 'POST',
+        body: credentials,
+      }),
+      transformErrorResponse: (response: { status: number, data: any }) => {
+        return {
+          status: response.status,
+          message: response.data?.error?.message || 'An unexpected error occurred',
+        };
+      },
+    }),
+    getMe: builder.query<User, void>({
       query: () => '/users/me',
     }),
   }),
 });
 
-export const { useLoginMutation, useGetMeQuery } = authApi;
+export const { useLoginMutation, useGetMeQuery, useRegisterMutation } = authApi;

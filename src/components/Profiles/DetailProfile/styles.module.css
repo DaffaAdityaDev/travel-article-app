@@ -1,0 +1,68 @@
+.profileContainer {
+  margin-bottom: 30px;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.profileCard {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profileInfo {
+  display: grid;
+  gap: 15px;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoLabel {
+  font-weight: bold;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.infoValue {
+  color: #333;
+}
+
+.statusActive {
+  color: #4CAF50;
+}
+
+.statusBlocked {
+  color: #f44336;
+}
+
+@media (min-width: 768px) {
+  .profileInfo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .infoItem {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .infoLabel {
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+}
+
+.commentedArticles {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}

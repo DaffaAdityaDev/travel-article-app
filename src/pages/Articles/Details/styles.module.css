@@ -1,0 +1,46 @@
+.articleDetails {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .articleImage {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .commentsSection {
+    margin-top: 40px;
+  }
+  
+  .commentForm {
+    margin-bottom: 20px;
+  }
+  
+  .commentForm textarea {
+    width: 100%;
+    min-height: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  .commentsList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .commentItem {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .commentItem p {
+    margin: 5px 0;
+  }
+  
+  .commentItem button {
+    margin-right: 10px;
+  }

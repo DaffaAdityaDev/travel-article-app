@@ -2,20 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../features/authSlice';
-import { useLoginMutation } from '../../services/authApi';
+import { useRegisterMutation } from '../../services/authApi';
 import { useAuth } from '../../hooks/useAuth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './styles.module.css';
 
-function Login() {
-  const [identifier, setIdentifier] = useState('');
+function Register() {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthenticated } = useAuth();
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [register, { isLoading }] = useRegisterMutation();
 
   useEffect(() => {
     if (isAuthenticated || localStorage.getItem('authToken')) {
@@ -27,30 +28,27 @@ function Login() {
     e.preventDefault();
 
     try {
-      const userData = await login({ identifier, password }).unwrap();
+      const userData = await register({ username, email, password }).unwrap();
       dispatch(setCredentials(userData));
-      setIdentifier('');
+      setUsername('');
+      setEmail('');
       setPassword('');
       navigate('/articles');
+      toast.success('Registration successful!', {
+        position: "top-right",
+        autoClose: 3000,
+      });
     } catch (err: unknown) {
-      if (typeof err === 'object' && err !== null && 'data' in err) {
-        const errorMessage = (err as { data: string }).data;
-        toast.error(errorMessage, {
+      if (err instanceof Error && 'data' in err) {
+        const errorWithData = err as { data: { message: string } };
+        toast.error(errorWithData.data.message, {
           position: "top-right",
           autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
         });
       } else {
         toast.error('An unexpected error occurred. Please try again later.', {
           position: "top-right",
           autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
         });
       }
     }
@@ -58,23 +56,36 @@ function Login() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (name === 'identifier') setIdentifier(value);
-    if (name === 'password') setPassword(value);
+    if (name === 'username') setUsername(value);
+    else if (name === 'email') setEmail(value);
+    else if (name === 'password') setPassword(value);
   };
 
   return (
-    <div className={styles.loginContainer}>
+    <div className={styles.registerContainer}>
       <ToastContainer />
-      <div className={styles.loginForm}>
-        <h1 className={styles.loginTitle}>Login</h1>
+      <div className={styles.registerForm}>
+        <h1 className={styles.registerTitle}>Register</h1>
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
-            <label htmlFor="identifier" className={styles.formLabel}>Email:</label>
+            <label htmlFor="username" className={styles.formLabel}>Username:</label>
             <input
               type="text"
-              id="identifier"
-              name="identifier"
-              value={identifier}
+              id="username"
+              name="username"
+              value={username}
+              onChange={handleInputChange}
+              required
+              className={styles.formInput}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="email" className={styles.formLabel}>Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
               onChange={handleInputChange}
               required
               className={styles.formInput}
@@ -93,15 +104,15 @@ function Login() {
             />
           </div>
           <button type="submit" disabled={isLoading} className={styles.submitButton}>
-            {isLoading ? 'Logging in...' : 'Sign In'}
+            {isLoading ? 'Registering...' : 'Register'}
           </button>
         </form>
-        <Link to="/register" className={styles.registerLink}>
-          Don't have an account? Register here
+        <Link to="/login" className={styles.loginLink}>
+          Already have an account? Login here
         </Link>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Register;

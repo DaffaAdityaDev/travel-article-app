@@ -4,21 +4,37 @@ import Layout from './components/Layout'
 import Login from './pages/Login'
 import RequireAuth from './features/RequireAuth'
 import Dashboard from './pages/Dashboard'
+import Articles from './pages/Articles'
+import ArticleDetails from './pages/Articles/Details'
+import Register from './pages/Register'
+import Profiles from './pages/Profiles'
+import ManageArticles from './pages/Articles/Manage'
+import Category from './pages/Category'
 
 function App() {
   
 
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      
+      <Route path="/">
         <Route index element={<Login />} />
-        <Route path="login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         {/* Protected Routes */}
-        <Route element={<RequireAuth />}>
-          <Route path='dashboard' element={<Dashboard/>}/>
+        <Route element={<Layout />}>
+          <Route element={<RequireAuth />}>
+            <Route path='/dashboard' element={<Dashboard/>}/>
+            <Route path="/articles" element={<Articles />} />
+            <Route path="/articles/:documentId" element={<ArticleDetails />} />
+            <Route path="/articles/manage" element={<ManageArticles />} />
+            <Route path="/profiles" element={<Profiles />} />
+            <Route path="/category" element={<Category />} />
+          </Route>
         </Route>
       </Route>
+      
     </Routes>
   )
 }

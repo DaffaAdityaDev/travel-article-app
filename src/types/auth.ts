@@ -4,9 +4,17 @@ export type AuthState = {
 };
 
 export type User = {
-    id: string;
+    id: number;
+    documentId: string;
     username: string;
     email: string;
+    provider: string;
+    confirmed: boolean;
+    blocked: boolean;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    locale: string | null;
 };
 
 export interface LoginCredentials {
@@ -14,7 +22,19 @@ export interface LoginCredentials {
     password: string;
 }
 
+export interface RegisterCredentials {
+    username: string;
+    email: string;
+    password: string;
+}
+
 export interface LoginResponse {
     jwt: string;
     user: User;
 }
+
+export interface RegisterResponse {
+    jwt: string;
+    user: User;
+}
+

@@ -1,0 +1,93 @@
+.categoryContainer {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .pageTitle {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .categoryForm {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .formInput {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .submitButton,
+  .cancelButton {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submitButton {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .cancelButton {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .categoriesList {
+    display: grid;
+    gap: 10px;
+  }
+  
+  .categoryItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+  }
+  
+  .categoryActions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .editButton,
+  .deleteButton {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .editButton {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  .deleteButton {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .loading,
+  .error {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 1.2rem;
+  }
+  
+  .error {
+    color: #f44336;
+  }

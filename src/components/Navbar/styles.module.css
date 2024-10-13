@@ -1,0 +1,170 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.navbar {
+    background-color: white;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    border-bottom: 2px solid #71C9CE;
+}
+
+.navHeader h1 {
+    font-size: 1.4rem;
+    margin: 0;
+    color: #333;
+    font-weight: bold;
+}
+
+.navList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.navList li {
+    margin-left: 20px;
+}
+
+.navList a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.navList a:hover {
+    color: #71C9CE;
+}
+
+.logoutButton {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+    background-color: #c82333;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: white;
+}
+
+.toggleButton {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #71C9CE;
+    z-index: 1001; /* Ensure it's above other elements */
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+    .navbar {
+        justify-content: flex-start;
+        flex-direction: column;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 250px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        padding: 0;
+        background-color: white;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+
+    .navbar.open {
+        transform: translateX(0);
+    }
+
+    .navHeader {
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+    }
+
+    .toggleButton {
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #71C9CE;
+        z-index: 1002;
+    }
+
+    .navList {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navList li {
+        margin: 0;
+        width: 100%;
+    }
+
+    .navList a {
+        display: block;
+        padding: 15px 20px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .logoutButton {
+        width: 100%;
+        margin: 0;
+        padding: 15px 20px;
+        border-radius: 0;
+    }
+
+    .content {
+        margin-left: 0;
+        padding-top: 60px;
+    }
+}
+  
+  /* Desktop styles */
+@media (min-width: 768px) {
+    .navbar {
+        justify-content: space-evenly;
+    }
+
+    .toggleButton {
+        display: none;
+    }
+
+    .navList {
+        flex-direction: row;
+    }
+
+    .content {
+        padding-top: 20px;
+    }
+}

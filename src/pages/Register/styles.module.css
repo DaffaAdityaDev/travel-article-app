@@ -1,0 +1,97 @@
+.registerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  font-family: Arial, sans-serif;
+}
+
+.registerForm {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.registerTitle {
+  font-size: 2rem;
+  color: #1877f2;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.formInput {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #1877f2;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #1877f2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #166fe5;
+}
+
+.submitButton:disabled {
+  background-color: #9cb3d8;
+  cursor: not-allowed;
+}
+
+.loginLink {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  color: #1877f2;
+  text-decoration: none;
+}
+
+.loginLink:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .registerForm {
+    padding: 1.5rem;
+  }
+
+  .registerTitle {
+    font-size: 1.75rem;
+  }
+
+  .formInput,
+  .submitButton {
+    font-size: 0.9rem;
+  }
+}
+

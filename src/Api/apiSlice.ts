@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { setCredentials, logout } from '../features/authSlice';
+import { logout } from '../features/authSlice';
 import { RootState } from '../redux/store/store';
 
 const baseQuery = fetchBaseQuery({ 
-    baseUrl: 'https://extra-brooke-yeremiadio-46b2183e.koyeb.app/api',
+    baseUrl: import.meta.env.VITE_API_BASE_URL,
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
-        const token = (getState() as RootState).auth.token;
+        const token = (getState() as RootState).auth.token || localStorage.getItem('authToken');
         if (token) {
             headers.set('authorization', `Bearer ${token}`);
         }
@@ -14,26 +15,20 @@ const baseQuery = fetchBaseQuery({
     },
 });
 
-const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
-    let result = await baseQuery(args, api, extraOptions);
-    if (result?.error?.status === 403) {
-        console.log('Sending refresh token');
-        // send refresh token to get new access token
-        const refreshResult = await baseQuery('/auth/refresh-token', api, extraOptions);
-        if (refreshResult?.data) {
-            const user = (api.getState() as RootState).auth.user;
-            // store the new token
-            api.dispatch(setCredentials({ ...refreshResult.data, user }));
-            // retry the original query with new access token
-            result = await baseQuery(args, api, extraOptions);
-        } else {
+const baseQueryWithErrorHandling = async (args: any, api: any, extraOptions: any) => {
+    const result = await baseQuery(args, api, extraOptions);
+    if (result.error) {
+        if (result.error.status === 401) {
+            // Handle unauthorized access
             api.dispatch(logout());
         }
+        // You can add more specific error handling here
+        return { error: { status: result.error.status, data: result.error.data } };
     }
     return result;
 };
 
 export const apiSlice = createApi({
-    baseQuery: baseQueryWithReauth,
+    baseQuery: baseQueryWithErrorHandling,
     endpoints: () => ({}),
 });

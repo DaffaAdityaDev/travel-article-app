@@ -3,8 +3,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { logout } from '../features/authSlice';
 import { RootState } from '../redux/store/store';
 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+const vercelEnv = import.meta.env.VITE_VERCEL_ENV
+
+console.log(`API Base URL: ${apiBaseUrl}`)
+console.log(`Vercel Environment: ${vercelEnv}`)
+
 const baseQuery = fetchBaseQuery({ 
-    baseUrl: import.meta.env.VITE_API_BASE_URL,
+    baseUrl: apiBaseUrl ,
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = (getState() as RootState).auth.token || localStorage.getItem('authToken');

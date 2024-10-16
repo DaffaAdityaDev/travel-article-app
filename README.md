@@ -76,8 +76,6 @@ Travel Article App is a responsive web application for sharing and exploring tra
 
 ## API Integration
 
-This project uses the My Dummy Travel API. For detailed API documentation, visit:
-[My Dummy Travel API Strapi Documentation](https://documenter.getpostman.com/view/14406239/2sAXxJiajq#2f73c35e-1594-467e-ba97-78458bdd376c)
 
 ## Scripts
 
@@ -86,10 +84,4 @@ This project uses the My Dummy Travel API. For detailed API documentation, visit
 - `npm run lint`: Run ESLint for code linting
 - `npm run preview`: Preview the production build locally
 
-## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License.

@@ -6,7 +6,7 @@ Travel Article App is a responsive web application for sharing and exploring tra
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your-username/travel-article-app.git
+   git clone https://github.com/DaffaAdityaDev/travel-article-app.git
    cd travel-article-app
    ```
 
